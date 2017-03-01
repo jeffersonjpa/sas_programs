@@ -1,0 +1,523 @@
+<?xml version="1.0" encoding="UTF-8"?><Task schemaVersion="5.1">
+    <Registration>
+        <Name>Bubble Plot</Name>
+        <Description>Bubble plots show the relationships between three or more variables.</Description>
+        <GUID>5C4AC292-B217-4853-AA24-21D97B16D7D9</GUID>
+        <Procedures>SGPLOT</Procedures>
+        <Version>3.6</Version>
+        <Links>
+            <Link href="http://documentation.sas.com/#/?softwareId=STUDIOMID&amp;softwareVersion=3.6&amp;softwareContextId=tasks&amp;requestor=inapp">SAS Studio Task Reference Guide</Link>
+            <Link href="http://support.sas.com/cdlsearch?nh=25&amp;ct=80000&amp;qt=PROC+SGPLOT">PROC SGPLOT Documentation</Link>
+            <Link href=""> </Link>
+            <Link href=""> </Link>
+            <Link href="http://support.sas.com/dsearch?&amp;ct=5240&amp;qt=PROC+SGPLOT">PROC SGPLOT Papers</Link>
+            <Link href=""> </Link>
+            <Link href=""> </Link>
+            <Link href="http://support.sas.com/kb/?Find=Search&amp;ct=51000&amp;qt=PROC+SGPLOT">PROC SGPLOT Samples and SAS Notes</Link>
+         </Links>
+    </Registration>
+        
+    <Metadata>
+    <!--- Define the data roles for this task.    -->
+        <DataSources>
+            <DataSource name="DATASOURCE">
+                <Roles>
+                    <Role maxVars="1" minVars="1" name="XVAR" type="A">X variable:</Role>
+                    <Role maxVars="1" minVars="1" name="YVAR" type="A">Y variable:</Role>
+                    <Role maxVars="1" minVars="1" name="SIZEVAR" type="N">Size variable:</Role>
+                    <Role maxVars="1" minVars="0" name="COLORRESPONSEVAR" type="N">Color response variable:</Role>                              
+                    <Role maxVars="1" minVars="0" name="GROUPVAR" type="A">Group variable:</Role>
+                    <Role maxVars="1" minVars="0" name="LABELVAR" type="A">Label variable:</Role>                              
+                    <Role maxVars="1" minVars="0" name="URLVAR" type="C">URL variable:</Role>
+                </Roles>
+            </DataSource>
+        </DataSources>
+
+        <Options>
+            <Option inputType="string" name="DATATAB">DATA</Option>
+            <Option inputType="string" name="DATAGROUP">DATA</Option>
+            <Option inputType="string" name="ROLESGROUP">ROLES</Option>
+            <Option inputType="string" name="OPTIONSTAB">OPTIONS</Option>
+
+            <!--- Define the task options.-->
+            <Option inputType="string" name="where">WHERE CLAUSE FILTER</Option>
+                <Option defaultValue="0" inputType="checkbox" name="applyWhereClause">Apply where clause</Option>                              
+                <Option defaultValue="" indent="1" inputType="textbox" name="whereString" width="300px">Where string:</Option>
+                <Option defaultValue="0" indent="1" inputType="checkbox" name="includeAsFootnote">Include as footnote</Option>                              
+                <Option inputType="string" name="whereClause">Where clause:</Option>                
+           
+            <Option inputType="string" name="title">TITLE AND FOOTNOTE</Option>
+                <Option defaultValue="" inputType="inputtext" name="titleString" width="300px">Title:</Option>
+                <Option defaultValue="0" inputType="checkbox" name="setTitleSize">Set title font size</Option>
+                <Option decimalPlaces="0" defaultValue="14" increment="1" inputType="numstepper" maxValue="24" minValue="5" name="titleSize" required="true" size="8em">Font size:</Option>                                               
+                <Option defaultValue="" inputType="inputtext" name="footnoteString" width="300px">Footnote:</Option>
+                <Option defaultValue="0" inputType="checkbox" name="setFootnoteSize">Set footnote font size</Option>
+                <Option decimalPlaces="0" defaultValue="12" increment="1" inputType="numstepper" maxValue="20" minValue="5" name="footnoteSize" required="true" size="8em">Font size:</Option>                                               
+ 
+            <Option inputType="string" name="bubbleDetails">BUBBLE DETAILS</Option>
+                <Option defaultValue="0" inputType="checkbox" name="useColor">Apply color</Option>                              
+                <Option defaultValue="#003399" indent="1" inputType="color" name="fillColor">Fill color</Option>
+                <Option defaultValue="none" inputType="combobox" name="dataSkin" width="250px">Data skin:</Option>
+                        <Option inputType="string" name="none">None</Option>
+                        <Option inputType="string" name="gloss">Gloss</Option>
+                        <Option inputType="string" name="sheen">Sheen</Option>
+                        <Option inputType="string" name="crisp">Crisp</Option>
+                        <Option inputType="string" name="matte">Matte</Option>
+                        <Option inputType="string" name="pressed">Pressed</Option>
+                <Option decimalPlaces="0" defaultValue="7" increment="1" inputType="numstepper" maxValue="100" minValue="1" name="minRadius" required="true" size="8em">Minimum radius:</Option>
+                <Option decimalPlaces="0" defaultValue="14" increment="1" inputType="numstepper" maxValue="100" minValue="1" name="maxRadius" required="true" size="8em">Maximum radius:</Option>
+                <Option decimalPlaces="0,2" defaultValue="0.00" increment="0.05" inputType="numstepper" maxValue="1.00" minValue="0.00" name="fillTrans" required="true" size="8em">Transparency:</Option>
+
+            <Option inputType="string" name="colorModel">COLOR MODEL</Option>
+                <Option defaultValue="0" inputType="checkbox" name="useColorModel">Apply custom three-color model</Option>                              
+                <Option defaultValue="#667FA2" indent="1" inputType="color" name="startColor">Start color</Option>
+                <Option defaultValue="#FAFBFE" indent="1" inputType="color" name="middleColor">Middle color</Option>
+                <Option defaultValue="#D05B5B" indent="1" inputType="color" name="endColor">Endcolor</Option>
+
+            <Option inputType="string" name="bubbleLabels">BUBBLE LABELS</Option>
+                <Option defaultValue="0" inputType="checkbox" name="useLabelColor">Apply color</Option>                              
+                <Option defaultValue="#000000" indent="1" inputType="color" name="labelColor">Label color</Option>
+                <Option decimalPlaces="0" defaultValue="7" increment="1" inputType="numstepper" maxValue="20" minValue="5" name="labelSize" required="true" size="8em">Font size:</Option>
+                <Option defaultValue="topRight" inputType="combobox" name="labelPosition" width="250px">Label position</Option>
+                        <Option inputType="string" name="topRight">Top right</Option>
+                        <Option inputType="string" name="topLeft">Top left</Option>
+                        <Option inputType="string" name="bottomRight">Bottom right</Option>
+                        <Option inputType="string" name="bottomLeft">Bottom left</Option>
+                        <Option inputType="string" name="top">Top</Option>
+                        <Option inputType="string" name="right">Right</Option>
+                        <Option inputType="string" name="left">Left</Option>
+                        <Option inputType="string" name="bottom">Bottom</Option>
+                        <Option inputType="string" name="center">Center</Option>
+
+            <Option inputType="string" name="xAxis">X AXIS</Option>
+                <Option defaultValue="1" inputType="checkbox" name="showXGrid">Show grid lines</Option>                               
+                <Option defaultValue="1" inputType="checkbox" name="showXLabel">Show label</Option>
+                <Option defaultValue="" inputType="inputtext" name="xLabel" width="300px">Custom label:</Option>
+
+            <Option inputType="string" name="yAxis">Y AXIS</Option>
+                <Option defaultValue="1" inputType="checkbox" name="showYGrid">Show grid lines</Option>                                                               
+                <Option defaultValue="1" inputType="checkbox" name="showYLabel">Show label</Option>
+                <Option defaultValue="" inputType="inputtext" name="yLabel" width="300px">Custom label:</Option>
+
+            <Option inputType="string" name="legend">LEGEND DETAILS</Option>
+                <Option defaultValue="1" inputType="checkbox" name="legendShow">Show legend</Option>                         
+                <Option defaultValue="outside" inputType="combobox" name="discreteLegendLoc" width="250px">Group legend location:</Option>
+                    <Option inputType="string" name="outside">Outside</Option>
+                    <Option inputType="string" name="inside">Inside</Option>
+                <Option defaultValue="legendRight" inputType="combobox" name="gradientLegendPos" width="250px">Color legend position:</Option>
+                    <Option inputType="string" name="legendRight">Right</Option>
+                    <Option inputType="string" name="legendBottom">Bottom</Option>
+
+            <Option inputType="string" name="graphSize">GRAPH SIZE</Option>
+                <Option defaultValue="in" inputType="combobox" name="dimType" width="100px">Dimension:</Option>
+                    <Option inputType="string" name="in">Inches</Option>
+                    <Option inputType="string" name="cm">Cms</Option>
+                    <Option inputType="string" name="px">Pixels</Option>
+                <Option decimalPlaces="0,1" defaultValue="6.4" increment="0.1" inputType="numstepper" maxValue="12.0" minValue="2.0" name="inchWidth" required="true" size="10em">Width:</Option>
+                <Option decimalPlaces="0,1" defaultValue="4.8" increment="0.1" inputType="numstepper" maxValue="12.0" minValue="2.0" name="inchHeight" required="true" size="10em">Height:</Option>
+                <Option decimalPlaces="0,1" defaultValue="16" increment="0.1" inputType="numstepper" maxValue="30.0" minValue="5.0" name="cmWidth" required="true" size="10em">Width:</Option>
+                <Option decimalPlaces="0,1" defaultValue="12" increment="0.1" inputType="numstepper" maxValue="30.0" minValue="5.0" name="cmHeight" required="true" size="10em">Height:</Option>
+                <Option decimalPlaces="0,1" defaultValue="640" increment="1" inputType="numstepper" maxValue="1200" minValue="50" name="pixelWidth" required="true" size="10em">Width:</Option>
+                <Option decimalPlaces="0,1" defaultValue="480" increment="1" inputType="numstepper" maxValue="1200" minValue="50" name="pixelHeight" required="true" size="10em">Height:</Option>
+                                    
+        </Options>
+    </Metadata>
+        
+          <!--- Define the task options relationships                  -->
+          <!--- The UI engine will determine the best respresentation. -->
+          
+    <UI>
+        <Container option="DATATAB">
+            <Group open="true" option="DATAGROUP">
+                <DataItem data="DATASOURCE"/>
+            </Group>
+                
+            <Group open="false" option="where">                
+                <OptionItem option="applyWhereClause"/>
+                <OptionItem option="whereString"/>
+                <OptionItem option="includeAsFootnote"/>                
+            </Group>
+            
+            <Group open="true" option="ROLESGROUP">
+                <RoleItem role="XVAR"/>
+                <RoleItem role="YVAR"/>
+                <RoleItem role="SIZEVAR"/>
+                <RoleItem role="COLORRESPONSEVAR"/>                
+                <RoleItem role="GROUPVAR"/>
+                <RoleItem role="LABELVAR"/>
+                <RoleItem role="URLVAR"/>
+            </Group>
+        </Container>
+
+        <Container option="OPTIONSTAB">
+            <Group open="true" option="title">
+                <OptionItem option="titleString"/>
+                <OptionItem option="setTitleSize"/>                            
+                <OptionItem option="titleSize"/>                            
+                <OptionItem option="footnoteString"/>
+                <OptionItem option="setFootnoteSize"/>                            
+                <OptionItem option="footnoteSize"/>                            
+            </Group>
+            
+            <Group option="bubbleDetails">
+                <OptionItem option="useColor"/>
+                <OptionItem option="fillColor"/>
+                <OptionItem option="minRadius"/>                           
+                <OptionItem option="maxRadius"/>
+                <OptionItem option="fillTrans"/>
+                <OptionChoice option="dataSkin">
+                    <OptionItem option="none"/>                                             
+                    <OptionItem option="gloss"/>
+                    <OptionItem option="sheen"/>
+                    <OptionItem option="crisp"/>
+                    <OptionItem option="matte"/>
+                    <OptionItem option="pressed"/>
+                </OptionChoice>                                          
+                
+            </Group>
+
+            <Group option="colorModel">
+                <OptionItem option="useColorModel"/>
+                <OptionItem option="startColor"/>
+                <OptionItem option="middleColor"/>
+                <OptionItem option="endColor"/>             
+            </Group>
+
+            <Group option="bubbleLabels">
+                <OptionItem option="useLabelColor"/>
+                <OptionItem option="labelColor"/>            
+                <OptionItem option="labelSize"/>
+                <OptionChoice option="labelPosition">
+                    <OptionItem option="topRight"/>
+                    <OptionItem option="topLeft"/>
+                    <OptionItem option="bottomRight"/>
+                    <OptionItem option="bottomLeft"/>
+                    <OptionItem option="top"/>
+                    <OptionItem option="right"/>
+                    <OptionItem option="left"/>
+                    <OptionItem option="bottom"/>
+                    <OptionItem option="center"/> 
+                </OptionChoice>                                                                                                                                                                                               
+            </Group>
+                    
+            <Group option="xAxis">
+                <OptionItem option="showXGrid"/>                    
+                <OptionItem option="showXLabel"/>
+                <OptionItem option="xLabel"/>
+            </Group>
+
+            <Group option="yAxis">
+                <OptionItem option="showYGrid"/>                    
+                <OptionItem option="showYLabel"/>
+                <OptionItem option="yLabel"/>
+            </Group>
+                                    
+            <Group option="legend">                   
+                <OptionChoice option="discreteLegendLoc">
+                     <OptionItem option="outside"/>
+                     <OptionItem option="inside"/>
+                </OptionChoice>
+                <OptionChoice option="gradientLegendPos">
+                     <OptionItem option="legendRight"/>
+                     <OptionItem option="legendBottom"/>
+                </OptionChoice>                                                  
+            </Group>                
+
+            <Group option="graphSize">
+                <OptionChoice option="dimType">
+                    <OptionItem option="in"/>                                             
+                    <OptionItem option="cm"/>
+                    <OptionItem option="px"/>
+                </OptionChoice> 
+                <OptionItem option="inchWidth"/>
+                <OptionItem option="inchHeight"/>
+                <OptionItem option="cmWidth"/>
+                <OptionItem option="cmHeight"/>
+                <OptionItem option="pixelWidth"/>
+                <OptionItem option="pixelHeight"/>                                           
+            </Group>
+        </Container>
+    </UI>
+
+    <Dependencies>
+        <Dependency condition=" $applyWhereClause== '1' ">
+            <Target action="enable" conditionResult="true" option="whereString"/>
+            <Target action="disable" conditionResult="false" option="whereString"/>
+            <Target action="enable" conditionResult="true" option="includeAsFootnote"/>
+            <Target action="disable" conditionResult="false" option="includeAsFootnote"/>
+        </Dependency>
+    
+        <Dependency condition=" $COLORRESPONSEVAR.size() &gt; 0">
+            <Target action="disable" conditionResult="true" option="GROUPVAR"/>
+            <Target action="enable" conditionResult="false" option="GROUPVAR"/>
+            <Target action="enable" conditionResult="true" option="useColorModel"/>
+            <Target action="disable" conditionResult="false" option="useColorModel"/>
+            <Target action="enable" conditionResult="true" option="startColor"/>
+            <Target action="disable" conditionResult="false" option="startColor"/>
+            <Target action="enable" conditionResult="true" option="middleColor"/>
+            <Target action="disable" conditionResult="false" option="middleColor"/>            
+            <Target action="enable" conditionResult="true" option="endColor"/>
+            <Target action="disable" conditionResult="false" option="endColor"/>                                    
+        </Dependency>
+        
+        <Dependency condition=" $GROUPVAR.size() &gt; 0 || $COLORRESPONSEVAR.size() &gt; 0">
+            <Target action="disable" conditionResult="true" option="useColor"/>
+            <Target action="enable" conditionResult="false" option="useColor"/>
+            <Target action="disable" conditionResult="true" option="fillColor"/>
+            <Target action="enable" conditionResult="false" option="fillColor"/>
+            <Target action="enable" conditionResult="true" option="legendShow"/>
+            <Target action="disable" conditionResult="false" option="legendShow"/>
+        </Dependency>
+               
+        <Dependency condition="$LABELVAR.size() &gt; 0">
+            <Target action="enable" conditionResult="true" option="labelSize"/>
+            <Target action="disable" conditionResult="false" option="labelSize"/>
+            <Target action="enable" conditionResult="true" option="useLabelColor"/>
+            <Target action="disable" conditionResult="false" option="useLabelColor"/>                        
+            <Target action="enable" conditionResult="true" option="labelColor"/>
+            <Target action="disable" conditionResult="false" option="labelColor"/>
+            <Target action="enable" conditionResult="true" option="labelPosition"/>
+            <Target action="disable" conditionResult="false" option="labelPosition"/>                        
+        </Dependency>
+
+        <Dependency condition="$setTitleSize == 1">
+            <Target action="enable" conditionResult="true" option="titleSize"/>
+            <Target action="disable" conditionResult="false" option="titleSize"/>
+        </Dependency>
+
+        <Dependency condition="$setFootnoteSize == 1">
+            <Target action="enable" conditionResult="true" option="footnoteSize"/>
+            <Target action="disable" conditionResult="false" option="footnoteSize"/>
+        </Dependency>
+        
+        <Dependency condition=" $useColor== '1' ">
+            <Target action="enable" conditionResult="true" option="fillColor"/>
+            <Target action="disable" conditionResult="false" option="fillColor"/>
+        </Dependency>
+
+        <Dependency condition=" $useColorModel == '1' ">
+            <Target action="enable" conditionResult="true" option="startColor"/>
+            <Target action="enable" conditionResult="true" option="middleColor"/>
+            <Target action="enable" conditionResult="true" option="endColor"/>
+            <Target action="disable" conditionResult="false" option="startColor"/>
+            <Target action="disable" conditionResult="false" option="middleColor"/>
+            <Target action="disable" conditionResult="false" option="endColor"/>            
+        </Dependency>
+
+        <Dependency condition=" $useLabelColor== '1' ">
+            <Target action="enable" conditionResult="true" option="labelColor"/>
+            <Target action="disable" conditionResult="false" option="labelColor"/>
+        </Dependency>
+
+        <Dependency condition=" $GROUPVAR.size() &gt; 0 &amp;&amp; $legendShow == 1">                     
+            <Target action="enable" conditionResult="true" option="discreteLegendLoc"/>
+            <Target action="disable" conditionResult="false" option="discreteLegendLoc"/>
+        </Dependency>
+
+        <Dependency condition=" $COLORRESPONSEVAR.size() &gt; 0 &amp;&amp; $legendShow == 1">                     
+            <Target action="enable" conditionResult="true" option="gradientLegendPos"/>
+            <Target action="disable" conditionResult="false" option="gradientLegendPos"/>
+        </Dependency>
+
+        <Dependency condition=" $showXLabel == '1'">
+            <Target action="enable" conditionResult="true" option="xLabel"/>
+            <Target action="disable" conditionResult="false" option="xLabel"/>
+        </Dependency>           
+                
+        <Dependency condition=" $showYLabel == '1'">
+            <Target action="enable" conditionResult="true" option="yLabel"/>
+            <Target action="disable" conditionResult="false" option="yLabel"/>
+        </Dependency>
+        
+        <Dependency condition=" $dimType == 'px' ">
+           <Target action="show" conditionResult="true" option="pixelWidth"/>
+           <Target action="show" conditionResult="true" option="pixelHeight"/>
+           <Target action="hide" conditionResult="true" option="inchWidth"/>
+           <Target action="hide" conditionResult="true" option="inchHeight"/>
+           <Target action="hide" conditionResult="true" option="cmWidth"/>
+           <Target action="hide" conditionResult="true" option="cmHeight"/>
+        </Dependency>
+        <Dependency condition="$dimType == 'in' ">
+           <Target action="hide" conditionResult="true" option="pixelWidth"/>
+           <Target action="hide" conditionResult="true" option="pixelHeight"/>
+           <Target action="show" conditionResult="true" option="inchWidth"/>
+           <Target action="show" conditionResult="true" option="inchHeight"/>
+           <Target action="hide" conditionResult="true" option="cmWidth"/>
+           <Target action="hide" conditionResult="true" option="cmHeight"/>
+        </Dependency>
+        <Dependency condition=" $dimType == 'cm' ">
+           <Target action="hide" conditionResult="true" option="pixelWidth"/>
+           <Target action="hide" conditionResult="true" option="pixelHeight"/>
+           <Target action="hide" conditionResult="true" option="inchWidth"/>
+           <Target action="hide" conditionResult="true" option="inchHeight"/>
+           <Target action="show" conditionResult="true" option="cmWidth"/>
+           <Target action="show" conditionResult="true" option="cmHeight"/>
+        </Dependency>
+    </Dependencies>
+
+    
+    <Requirements>
+      <Requirement condition="$MathTool.toInteger($maxRadius) &gt; $MathTool.toInteger($minRadius)">
+        <Message nlsKey="bubblePlotRadiusRequirementKey">The Maximum radius must be larger than the Minimum radius.</Message>
+      </Requirement>
+    </Requirements>
+
+<!--- Define the velocity code template.        -->
+        
+<CodeTemplate>
+    <![CDATA[
+
+
+
+##--Extract first item from list
+#if( $XVAR.size() > 0 )       #set( $X=$XVAR.get(0) ) #end
+#if( $YVAR.size() > 0 )       #set( $Y=$YVAR.get(0) ) #end
+#if( $SIZEVAR.size() > 0 )    #set( $S=$SIZEVAR.get(0) ) #end
+#if( $GROUPVAR.size() > 0 )   #set( $GRP=$GROUPVAR.get(0) ) #end
+#if( $COLORRESPONSEVAR.size() > 0 )   #set( $COLOR=$COLORRESPONSEVAR.get(0) ) #end
+#if( $LABELVAR.size() > 0 )   #set( $LBL=$LABELVAR.get(0) ) #end
+#if( $URLVAR.size() > 0 )     #set( $URL=$URLVAR.get(0) ) #end
+
+#if ( $useColor == '1' || $fillTrans > 0 ) #set ( $SETATTRS = 'Yes' ) 
+#else #set ( $SETATTRS = 'No' )
+#end
+
+#if ( $useLabelColor == '1' || $labelSize != '7' ) #set ( $SETLABELATTRS = 'Yes' ) 
+#else #set ( $SETLABELATTRS = 'No' )
+#end
+
+#if ( $COLOR && $gradientLegendPos == 'legendRight' ) #set ( $GRADLEGENDPOS= 'right' ) #end 
+#if ( $COLOR && $gradientLegendPos == 'legendBottom' ) #set ( $GRADLEGENDPOS= 'bottom' ) #end 
+
+##/*  put dimType=$dimType;  */
+##/*  put useColor=$useColor;  */
+##/*  put fillTrans=$fillTrans;  */
+##/*  put SETATTRS=$SETATTRS;  */
+##/*  put GRP=$GRP;  */
+##/*  put GRADLEGENDPOS=$GRADLEGENDPOS;  */
+##/*  put where clause:  $whereString;  */
+##/*  put where Indlude:  $includeAsFootnote  */
+
+
+##--Set Graph Size--*/
+#if ( $dimType == "in" )
+  #set ($WIDTH = "$inchWidth$dimType" )
+  #set ($HEIGHT = "$inchHeight$dimType" )
+#end
+
+#if ( $dimType == "cm" )
+    #set ($WIDTH = "$cmWidth$dimType" )
+    #set ($HEIGHT = "$cmHeight$dimType" )
+#end
+
+#if ( $dimType == "px" )
+    #set ($WIDTH = "$pixelWidth$dimType" )
+    #set ($HEIGHT = "$pixelHeight$dimType" )
+#end
+
+##--Build font size strings--*/
+#set( $pt = "pt" )
+#set ($titleSizePt = "$titleSize$pt" )
+#set ($footSizePt = "$footnoteSize$pt" )
+
+/*--Set output size--*/
+ods graphics / reset 
+  #if (( $WIDTH ne "640px" && $WIDTH ne "6.4in" && $WIDTH ne "16cm") ||
+       ( $HEIGHT  ne "480px" && $HEIGHT ne "4.8in" && $HEIGHT ne "12cm"))
+     width=$WIDTH height=$HEIGHT #end
+  imagemap;
+
+/*--SGPLOT proc statement--*/
+proc sgplot data=$DATASOURCE
+  #if ( $applyWhereClause == 1 && $whereString.length() > 0 ) (where=($whereString)) #end 
+;
+
+##-Build qouted strings for title and footnote to clean up any quotes provided by user
+#if( $titleString != "" ) #set ($qTitleString = $CTMUtil.doubleQuoteString($titleString ) ) #end
+#if( $footnoteString != "" ) #set ($qFootnoteString = $CTMUtil.doubleQuoteString($footnoteString ) ) #end
+      
+#if( $titleString != "" || $footnoteString != "" || $includeAsFootnote == 1)
+/*--TITLE and FOOTNOTE--*/
+  #if( $titleString != "" ) title
+    #if( $setTitleSize == 1 ) H=$titleSizePt #end 
+      $qTitleString;
+  #end 
+  
+  #if( $includeAsFootnote == 1 && $whereString != "" ) footnote j=l
+    #if( $setFootnoteSize == 1 ) H=$footSizePt #end 
+    #set( $whereStr="$whereClause $whereString" ) $CTMUtil.doubleQuoteString($whereStr);
+  #end
+
+  #if( $footnoteString != "" ) footnote2 j=l
+    #if( $setFootnoteSize == 1 ) H=$footSizePt #end 
+      $qFootnoteString;
+  #end     
+#end
+
+/*--Bubble plot settings--*/
+    bubble x=$X y=$Y size=$S/
+                        #if( $GRP ) group=$GRP #end 
+                        #if( $COLOR) colorresponse=$COLOR #end
+                        #if( $LBL ) datalabel=$LBL #end
+                        #if( $URL ) url=$URL #end
+                        #if( $useColorModel == '1' ) colormodel=($startColor $middleColor $endColor) #end
+                        #if( $SETATTRS == 'Yes') fillattrs=(
+                          #if ( $useColor == '1') color=$fillColor #end
+                          #if ( $fillTrans > 0) transparency=$fillTrans #end
+                        ) 
+                        #end
+                        #if( $dataSkin != 'none' ) dataskin=$dataSkin #end
+                        #if( $LBL && $labelPosition != 'topRight' ) datalabelpos=$labelPosition #end
+                        #if( $LBL && $SETLABELATTRS == 'Yes') datalabelattrs=(  
+                            #if ( $labelSize != '7' ) size=$labelSize #end
+                            #if ( $useLabelColor == '1' ) color=$labelColor #end
+                        ) 
+                        #end
+                        #if( $minRadius != '7' ) bradiusmin=$minRadius #end
+                        #if( $maxRadius > $minRadius && $maxRadius != '14') bradiusmax=$maxRadius #end
+                        name='Bubble'
+                        ;
+
+/*--X Axis--*/
+    xaxis
+    #if( $showXGrid != '0' )  grid #end
+    #if( $showXLabel == '0' )  display=(nolabel) #end
+    #if( $xLabel.length() > 0 ) label=$CTMUtil.doubleQuoteString($xLabel) #end   
+        ;
+
+/*--Y Axis--*/
+    yaxis
+    #if( $showYGrid != '0' )  grid #end
+    #if( $showYLabel == '0' )  display=(nolabel) #end
+    #if( $yLabel.length() > 0 ) label=$CTMUtil.doubleQuoteString($yLabel) #end   
+        ;
+     
+#if ( $legendShow == '1' )
+/*--Legend Settings--*/
+      #if ( $COLOR && $gradientLegendPos ) 
+            gradlegend / position=$GRADLEGENDPOS; 
+      #end
+
+      #if ( $GRP ) 
+            keylegend / 
+            #if ( $discreteLegendLoc ) location=$discreteLegendLoc #end
+            #if ( $discreteLegendLoc  == 'Inside' ) across=1 #end
+            ;
+      #end
+
+#end                                    
+run; 
+
+ods graphics / reset;
+#if( $titleString != "") title; #end 
+#if( $footnoteString != "" || $includeAsFootnote == 1) footnote; #end
+
+]]>
+        </CodeTemplate>  
+
+<TemplateValues version="3.6">
+<![CDATA[
+{"yLabel":"","whereClause":"Where clause:","fillColor":"#003399","xLabel":"","showXLabel":"1","matte":"Matte","pixelWidth":"640","inchWidth":"6.4","where":"WHERE CLAUSE FILTER","legendBottom":"Bottom","fillTrans":"0.00","footnoteString":"","center":"Center","pixelHeight":"480","legendShow":"1","useColorModel":"0","bottomRight":"Bottom right","URLVAR":"","graphSize":"GRAPH SIZE","startColor":"#667FA2","none":"None","SIZEVAR":"json:[{\"value\":\"Weight\",\"type\":\"Numeric\",\"length\":8,\"format\":\"\",\"informat\":\"\",\"className\":\"RoleObject\"}]","useLabelColor":"0","right":"Right","showYGrid":"1","sasVersion":"9.44","DATASOURCE":{"librarytable":"SASHELP.CARS"},"gradientLegendPos":"legendRight","whereString":"","cm":"Cms","OPTIONSTAB":"OPTIONS","middleColor":"#FAFBFE","colorModel":"COLOR MODEL","titleString":"","bottom":"Bottom","XVAR":"json:[{\"value\":\"Make\",\"type\":\"Char\",\"length\":13,\"format\":\"\",\"informat\":\"\",\"className\":\"RoleObject\"}]","bubbleDetails":"BUBBLE DETAILS","includeAsFootnote":"0","endColor":"#D05B5B","YVAR":"json:[{\"value\":\"Model\",\"type\":\"Char\",\"length\":40,\"format\":\"\",\"informat\":\"\",\"className\":\"RoleObject\"}]","cmWidth":"16","outside":"Outside","setFootnoteSize":"0","bottomLeft":"Bottom left","topRight":"Top right","topLeft":"Top left","pressed":"Pressed","maxRadius":"14","labelColor":"#000000","setTitleSize":"0","showXGrid":"1","inchHeight":"4.8","yAxis":"Y AXIS","title":"TITLE AND FOOTNOTE","applyWhereClause":"0","cmHeight":"12","dataSkin":"none","labelSize":"7","sheen":"Sheen","minRadius":"7","sasOS":"Linux LIN X64 2.6.32-642.6.2.el6.x86_64","left":"Left","xAxis":"X AXIS","titleSize":"14","discreteLegendLoc":"outside","top":"Top","footnoteSize":"12","useColor":"0","DATAGROUP":"DATA","crisp":"Crisp","bubbleLabels":"BUBBLE LABELS","labelPosition":"topRight","dimType":"in","COLORRESPONSEVAR":"json:[{\"value\":\"Weight\",\"type\":\"Numeric\",\"length\":8,\"format\":\"\",\"informat\":\"\",\"className\":\"RoleObject\"}]","gloss":"Gloss","in":"Inches","showYLabel":"1","px":"Pixels","legendRight":"Right","legend":"LEGEND DETAILS","DATATAB":"DATA","inside":"Inside","ROLESGROUP":"ROLES","GROUPVAR":"","LABELVAR":""}
+]]>
+</TemplateValues>
+</Task>
